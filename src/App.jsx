@@ -55,7 +55,7 @@ const TechBorder = ({ children, className = "" }) => (
 );
 
 const Button = ({ children, variant = 'primary', className = '', icon: Icon, ...props }) => {
-  const baseStyle = "inline-flex items-center justify-center gap-2 px-6 py-3 font-medium transition-all duration-300 font-mono text-sm tracking-wide relative overflow-hidden group";
+  const baseStyle = "inline-flex items-center justify-center gap-2 px-6 py-3 font-medium transition-all duration-300 font-mono text-sm tracking-wide relative overflow-hidden group cursor-pointer";
 
   const variants = {
     primary: "bg-[#BBB791] text-black hover:bg-[#D4D0AA]",
@@ -151,10 +151,38 @@ const GlitchText = ({ text, className }) => {
   );
 };
 
+// --- Components ---
+const ComingSoonPopup = ({ onClose }) => (
+  <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="bg-[#111] border border-white/10 p-8 max-w-sm w-full relative shadow-2xl transform transition-all scale-100">
+      <button onClick={onClose} className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors cursor-pointer">
+        <X size={20} />
+      </button>
+      <div className="flex flex-col items-center text-center space-y-4">
+        <div className="w-12 h-12 rounded-full bg-[#BBB791]/10 flex items-center justify-center">
+          <Activity className="text-[#BBB791]" size={24} />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-white mb-2">Coming Soon</h3>
+          <p className="text-white/50 text-sm leading-relaxed">
+            This version is currently in final testing. Join our waitlist to get notified when it drops.
+          </p>
+        </div>
+        <div className="pt-2 w-full">
+          <button onClick={onClose} className="w-full py-3 bg-[#BBB791] text-black font-bold text-sm tracking-wider hover:bg-[#D4D0AA] transition-colors cursor-pointer">
+            ACKNOWLEDGE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // --- Main App Component ---
 const OscillinxApp = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => {
     // Lenis Smooth Scroll
@@ -192,14 +220,17 @@ const OscillinxApp = () => {
     setMobileMenuOpen(false);
   };
 
+  const handleComingSoon = () => setShowComingSoon(true);
+
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-[#BBB791] selection:text-black overflow-x-hidden">
+
+      {showComingSoon && <ComingSoonPopup onClose={() => setShowComingSoon(false)} />}
 
       {/* --- Technical Grid Background --- */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]"
         style={{
           backgroundImage: `linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
         }}>
       </div>
 
@@ -216,16 +247,16 @@ const OscillinxApp = () => {
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-10 text-xs font-mono tracking-widest text-white/60">
-            <button onClick={() => scrollToSection('features')} className="hover:text-[#BBB791] transition-colors uppercase">[Features]</button>
-            <button onClick={() => scrollToSection('desktop')} className="hover:text-[#BBB791] transition-colors uppercase">[Desktop]</button>
-            <button onClick={() => scrollToSection('mobile')} className="hover:text-[#BBB791] transition-colors uppercase">[Mobile]</button>
-            <button className="border border-[#BBB791] text-[#BBB791] px-4 py-2 hover:bg-[#BBB791] hover:text-black transition-colors uppercase">
+            <button onClick={() => scrollToSection('features')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Features]</button>
+            <button onClick={() => scrollToSection('desktop')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Desktop]</button>
+            <button onClick={() => scrollToSection('mobile')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Mobile]</button>
+            <button className="border border-[#BBB791] text-[#BBB791] px-4 py-2 hover:bg-[#BBB791] hover:text-black transition-colors uppercase cursor-pointer">
               Download v1.0.0
             </button>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <button className="md:hidden text-white cursor-pointer" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
@@ -387,7 +418,10 @@ const OscillinxApp = () => {
                   </div>
                   <Download size={16} className="text-white/30 group-hover:text-[#BBB791]" />
                 </a>
-                <button className="w-full flex items-center justify-between p-4 border border-white/10 hover:border-[#BBB791] hover:bg-[#BBB791]/5 transition-all group text-left">
+                <button
+                  onClick={handleComingSoon}
+                  className="w-full flex items-center justify-between p-4 border border-white/10 hover:border-[#BBB791] hover:bg-[#BBB791]/5 transition-all group text-left cursor-pointer"
+                >
                   <div className="flex items-center gap-4">
                     <AppleLogo className="w-6 h-6 text-white/60 group-hover:text-[#BBB791]" />
                     <div>
@@ -405,6 +439,7 @@ const OscillinxApp = () => {
               <div className="absolute -top-10 -right-10 w-40 h-40 border-r border-t border-[#BBB791]/20"></div>
               <div className="absolute -bottom-10 -left-10 w-40 h-40 border-l border-b border-[#BBB791]/20"></div>
 
+              {/* Desktop UI Visual */}
               <div className="relative group">
                 <div className="absolute inset-0 bg-[#BBB791]/10 blur-2xl rounded-full opacity-20 -z-10"></div>
                 <div className="border border-white/10 shadow-2xl rounded-lg overflow-hidden bg-[#050505]">
@@ -532,14 +567,20 @@ const OscillinxApp = () => {
               </div>
 
               <div className="flex flex-wrap gap-4">
-                <button className="flex items-center gap-3 bg-white text-black px-6 py-3 font-bold hover:bg-[#e0e0e0] transition-colors">
+                <button
+                  onClick={handleComingSoon}
+                  className="flex items-center gap-3 bg-white text-black px-6 py-3 font-bold hover:bg-[#e0e0e0] transition-colors cursor-pointer"
+                >
                   <AppleLogo className="w-5 h-5" />
                   iOS App
                 </button>
-                <button className="flex items-center gap-3 bg-transparent border border-white/20 text-white px-6 py-3 font-bold hover:bg-white/5 transition-colors">
+                <a
+                  href="https://drive.google.com/uc?export=download&id=1xZQlAzSUaQ4OzfC4S2AiDM8gmk92bdr4"
+                  className="flex items-center gap-3 bg-transparent border border-white/20 text-white px-6 py-3 font-bold hover:bg-white/5 transition-colors"
+                >
                   <AndroidLogo className="w-5 h-5" />
                   Android
-                </button>
+                </a>
               </div>
             </div>
 
@@ -566,24 +607,23 @@ const OscillinxApp = () => {
               <div>
                 <h4 className="text-white font-bold mb-4 uppercase tracking-widest">Platform</h4>
                 <ul className="space-y-2 text-white/50">
-                  <li className="hover:text-[#BBB791] cursor-pointer">Desktop (x64/ARM)</li>
-                  <li className="hover:text-[#BBB791] cursor-pointer">Mobile (iOS/Android)</li>
-                  <li className="hover:text-[#BBB791] cursor-pointer">CLI Tools</li>
+                  <li onClick={() => scrollToSection('desktop')} className="hover:text-[#BBB791] cursor-pointer">Desktop (x64/ARM)</li>
+                  <li onClick={() => scrollToSection('mobile')} className="hover:text-[#BBB791] cursor-pointer">Mobile (iOS/Android)</li>
+                  <li onClick={handleComingSoon} className="hover:text-[#BBB791] cursor-pointer">CLI Tools</li>
                 </ul>
               </div>
               <div>
                 <h4 className="text-white font-bold mb-4 uppercase tracking-widest">Resources</h4>
                 <ul className="space-y-2 text-white/50">
-                  <li className="hover:text-[#BBB791] cursor-pointer">Model Library</li>
-                  <li className="hover:text-[#BBB791] cursor-pointer">Documentation</li>
-                  <li className="hover:text-[#BBB791] cursor-pointer">GitHub</li>
+                  <li onClick={handleComingSoon} className="hover:text-[#BBB791] cursor-pointer">Model Library</li>
+                  <li onClick={handleComingSoon} className="hover:text-[#BBB791] cursor-pointer">Documentation</li>
                 </ul>
               </div>
               <div>
                 <h4 className="text-white font-bold mb-4 uppercase tracking-widest">Legal</h4>
                 <ul className="space-y-2 text-white/50">
-                  <li className="hover:text-[#BBB791] cursor-pointer">Privacy Policy</li>
-                  <li className="hover:text-[#BBB791] cursor-pointer">Terms of Use</li>
+                  <li onClick={handleComingSoon} className="hover:text-[#BBB791] cursor-pointer">Privacy Policy</li>
+                  <li onClick={handleComingSoon} className="hover:text-[#BBB791] cursor-pointer">Terms of Use</li>
                 </ul>
               </div>
             </div>
@@ -591,9 +631,9 @@ const OscillinxApp = () => {
 
           <div className="border-t border-white/10 pt-12 pb-12 flex flex-col md:flex-row justify-between items-end gap-6 text-white/30">
             <div className="flex gap-6 uppercase tracking-wider">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Security</a>
+              <button onClick={handleComingSoon} className="hover:text-white transition-colors cursor-pointer">Privacy</button>
+              <button onClick={handleComingSoon} className="hover:text-white transition-colors cursor-pointer">Terms</button>
+              <button onClick={handleComingSoon} className="hover:text-white transition-colors cursor-pointer">Security</button>
             </div>
             <div>© 2026 OSCILLINX INC.</div>
           </div>
@@ -623,9 +663,15 @@ const OscillinxApp = () => {
         </div>
 
         <div className="mt-12 pt-12 border-t border-white/10">
-          <Button variant="primary" className="w-full justify-between group" icon={Download}>
-            DOWNLOAD v1.0.0
-          </Button>
+          <a
+            href="https://drive.google.com/uc?export=download&id=1xZQlAzSUaQ4OzfC4S2AiDM8gmk92bdr4"
+            className="w-full flex items-center justify-between p-4 bg-[#BBB791] text-black font-medium font-mono text-sm tracking-wide hover:bg-[#D4D0AA] transition-all group"
+          >
+            <span className="flex items-center gap-2">
+              <Download size={16} />
+              DOWNLOAD v1.0.0
+            </span>
+          </a>
         </div>
 
         <div className="absolute bottom-12 left-0 w-full text-center">
