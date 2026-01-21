@@ -12,6 +12,11 @@ import {
   ArrowDown,
   Layers,
   Activity,
+  Share2,
+  ChevronDown,
+  Paperclip,
+  Box,
+  CornerDownLeft,
 } from 'lucide-react';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
@@ -215,7 +220,7 @@ const OscillinxApp = () => {
             <button onClick={() => scrollToSection('desktop')} className="hover:text-[#BBB791] transition-colors uppercase">[Desktop]</button>
             <button onClick={() => scrollToSection('mobile')} className="hover:text-[#BBB791] transition-colors uppercase">[Mobile]</button>
             <button className="border border-[#BBB791] text-[#BBB791] px-4 py-2 hover:bg-[#BBB791] hover:text-black transition-colors uppercase">
-              Download v2.0
+              Download v1.0.0
             </button>
           </div>
 
@@ -372,22 +377,22 @@ const OscillinxApp = () => {
               </p>
 
               <div className="space-y-4">
-                <button className="w-full flex items-center justify-between p-4 border border-white/10 hover:border-[#BBB791] hover:bg-[#BBB791]/5 transition-all group text-left">
+                <a href="/downloads/Oscillinx.exe" download className="w-full flex items-center justify-between p-4 border border-white/10 hover:border-[#BBB791] hover:bg-[#BBB791]/5 transition-all group text-left">
                   <div className="flex items-center gap-4">
                     <WindowsLogo className="w-6 h-6 text-white/60 group-hover:text-[#BBB791]" />
                     <div>
                       <div className="font-bold text-sm">Windows Installer</div>
-                      <div className="text-[10px] font-mono text-white/40">v2.1.0 | .EXE | x64</div>
+                      <div className="text-[10px] font-mono text-white/40">v0.0.0 | .EXE | x64</div>
                     </div>
                   </div>
                   <Download size={16} className="text-white/30 group-hover:text-[#BBB791]" />
-                </button>
+                </a>
                 <button className="w-full flex items-center justify-between p-4 border border-white/10 hover:border-[#BBB791] hover:bg-[#BBB791]/5 transition-all group text-left">
                   <div className="flex items-center gap-4">
                     <AppleLogo className="w-6 h-6 text-white/60 group-hover:text-[#BBB791]" />
                     <div>
                       <div className="font-bold text-sm">macOS Image</div>
-                      <div className="text-[10px] font-mono text-white/40">v2.1.0 | .DMG | ARM64/Intel</div>
+                      <div className="text-[10px] font-mono text-white/40">v0.0.0 | .DMG | ARM64/Intel</div>
                     </div>
                   </div>
                   <Download size={16} className="text-white/30 group-hover:text-[#BBB791]" />
@@ -400,39 +405,27 @@ const OscillinxApp = () => {
               <div className="absolute -top-10 -right-10 w-40 h-40 border-r border-t border-[#BBB791]/20"></div>
               <div className="absolute -bottom-10 -left-10 w-40 h-40 border-l border-b border-[#BBB791]/20"></div>
 
-              {/* Desktop UI Visual */}
-              <div className="bg-[#111] border border-white/10 aspect-video relative shadow-2xl overflow-hidden group">
-                <div className="h-8 bg-[#1a1a1a] border-b border-white/5 flex items-center px-4 justify-between">
-                  <div className="flex gap-2">
-                    <div className="w-2 h-2 rounded-full bg-white/20"></div>
-                    <div className="w-2 h-2 rounded-full bg-white/20"></div>
-                  </div>
-                  <div className="text-[10px] font-mono text-white/30">Oscillinx Pro</div>
-                </div>
-                <div className="flex h-full">
-                  <div className="w-64 border-r border-white/5 bg-[#0a0a0a] p-4 hidden md:block">
-                    <div className="text-[10px] font-mono text-white/40 mb-4">ACTIVE CONTEXTS</div>
-                    <div className="space-y-2">
-                      <div className="p-2 bg-white/5 border-l-2 border-[#BBB791] text-xs text-white/80">Project Alpha Analysis</div>
-                      <div className="p-2 text-xs text-white/40">Code Refactor Loop</div>
-                      <div className="p-2 text-xs text-white/40">Secure Notes</div>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-[#BBB791]/10 blur-2xl rounded-full opacity-20 -z-10"></div>
+                <div className="border border-white/10 shadow-2xl rounded-lg overflow-hidden bg-[#050505]">
+                  {/* Coded Window Header */}
+                  <div className="h-9 bg-[#1a1a1a] border-b border-white/5 flex items-center px-4 justify-between select-none">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 rounded-full bg-white/20"></div>
+                      <div className="w-3 h-3 rounded-full bg-white/20"></div>
                     </div>
+                    <div className="text-[10px] font-mono font-medium text-white/30 tracking-wider">Oscillinx Pro</div>
                   </div>
-                  <div className="flex-1 bg-black p-8 font-mono text-sm text-white/80 relative">
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80 pointer-events-none"></div>
-                    <span className="text-[#BBB791]">{">"}</span> Analyze the provided security logs for anomalies.
-                    <br /><br />
-                    <span className="text-white/40">Scanning 40MB of log data...</span>
-                    <br />
-                    <span className="text-white/40">Found 3 potential vulnerabilities in authentication module.</span>
-                    <br /><br />
-                    <div className="p-4 border border-white/10 bg-[#111] text-xs font-mono">
-                      <div className="flex justify-between text-white/30 mb-2">
-                        <span>auth_module.js</span>
-                        <span>Ln 42, Col 12</span>
-                      </div>
-                      <code className="text-red-400">if (user.role == 'admin' || bypass === true)</code>
-                    </div>
+
+                  {/* App Content */}
+                  <div className="relative">
+                    <img
+                      src="/assets/app_screenshot.png"
+                      alt="Oscillinx Desktop Interface"
+                      className="w-full h-auto block"
+                    />
+                    {/* Overlay to blend the image border if needed */}
+                    <div className="absolute inset-0 ring-1 ring-inset ring-white/5 pointer-events-none"></div>
                   </div>
                 </div>
               </div>
@@ -455,26 +448,64 @@ const OscillinxApp = () => {
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-b-xl z-20"></div>
 
                   {/* App UI */}
-                  <div className="h-full flex flex-col">
-                    <div className="flex-1 p-6 flex flex-col justify-center space-y-6">
-                      <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center mx-auto">
-                        <div className="w-2 h-2 bg-[#BBB791] animate-ping rounded-full"></div>
+                  <div className="h-full flex flex-col bg-black text-white">
+                    {/* Header */}
+                    <div className="p-6 pt-12 flex items-start justify-between">
+                      <div className="flex items-start gap-4">
+                        <Menu className="text-white mt-1" size={24} strokeWidth={2.5} />
+                        <div>
+                          <div className="font-bold tracking-wider text-sm">OSCILLINX</div>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div>
+                            <span className="text-[10px] text-white/50 font-medium">No Model Loaded</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="text-center">
-                        <h3 className="text-white font-bold text-xl mb-1">Listening...</h3>
-                        <p className="text-white/40 text-sm">Processing locally</p>
-                      </div>
-                      <div className="flex justify-center gap-1 h-12 items-center">
-                        {[1, 2, 3, 4, 5, 4, 3, 2, 1].map((h, i) => (
-                          <div key={i} className="w-1 bg-[#BBB791]" style={{ height: `${h * 8}px`, opacity: 0.5 + (h / 10) }}></div>
-                        ))}
+                      <div className="flex items-center gap-3">
+                        <Share2 className="text-white" size={20} />
+                        <div className="flex items-center gap-1 bg-white/10 px-3 py-1.5 rounded-full">
+                          <span className="text-xs font-medium">Models</span>
+                          <ChevronDown size={14} />
+                        </div>
                       </div>
                     </div>
-                    <div className="p-6 bg-[#111] border-t border-white/5">
-                      <div className="h-12 bg-white/5 rounded-full flex items-center px-4 justify-between border border-white/5">
-                        <span className="text-white/20 text-sm">Ask anything...</span>
-                        <div className="w-8 h-8 bg-[#BBB791] rounded-full flex items-center justify-center">
-                          <ArrowDown size={14} className="text-black" />
+
+                    {/* Center Content */}
+                    <div className="flex-1 flex items-center justify-center">
+                      <h1 className="text-3xl font-bold tracking-[0.2em] text-[#BBB791]">
+                        OSCILLINX
+                      </h1>
+                    </div>
+
+                    {/* Bottom Section */}
+                    <div className="p-6 pb-8 space-y-6">
+                      {/* Input Area */}
+                      <div className="bg-[#1c1c1c] rounded-[2rem] p-4 pr-2">
+                        <div className="px-2 mb-8 text-white/50 text-base">Ask anything...</div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3 px-2">
+                            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                              <Paperclip size={20} className="text-white/70" />
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                              <Box size={20} className="text-white/70" />
+                            </div>
+                          </div>
+                          <div className="w-12 h-12 rounded-full bg-[#BBB791] flex items-center justify-center">
+                            <CornerDownLeft size={24} className="text-black" />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Footer Toggle */}
+                      <div className="flex justify-center">
+                        <div className="bg-[#1c1c1c] rounded-full p-1 flex items-center border border-white/5">
+                          <div className="bg-[#BBB791] text-black px-6 py-2 rounded-full text-xs font-bold font-mono">
+                            Offline
+                          </div>
+                          <div className="text-white/40 px-6 py-2 rounded-full text-xs font-bold font-mono">
+                            Online
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -593,8 +624,7 @@ const OscillinxApp = () => {
 
         <div className="mt-12 pt-12 border-t border-white/10">
           <Button variant="primary" className="w-full justify-between group" icon={Download}>
-            DOWNLOAD v2.0
-            <span className="opacity-50 text-xs font-normal">PKG_INSTALLER</span>
+            DOWNLOAD v1.0.0
           </Button>
         </div>
 
