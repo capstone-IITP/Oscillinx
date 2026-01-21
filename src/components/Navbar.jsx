@@ -42,7 +42,7 @@ export const Navbar = () => {
                     <button onClick={() => scrollToSection('features')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Features]</button>
                     <button onClick={() => scrollToSection('desktop')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Desktop]</button>
                     <button onClick={() => scrollToSection('mobile')} className="hover:text-[#BBB791] transition-colors uppercase cursor-pointer">[Mobile]</button>
-                    <button onClick={() => scrollToSection('desktop')} className="border border-[#BBB791] text-[#BBB791] px-4 py-2 hover:bg-[#BBB791] hover:text-black transition-colors uppercase cursor-pointer">
+                    <button onClick={() => scrollToSection('mobile')} className="border border-[#BBB791] text-[#BBB791] px-4 py-2 hover:bg-[#BBB791] hover:text-black transition-colors uppercase cursor-pointer">
                         Download v1.0.0
                     </button>
                 </div>
